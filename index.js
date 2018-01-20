@@ -1,4 +1,28 @@
+var products_select = [];
+$(document).ready(function(){   
 
+
+if(localStorage.length>0){
+	let producto_Storg=[];
+	producto_Storg=JSON.parse(localStorage.getItem('productos'));
+
+	console.log(producto_Storg);
+
+		for(let i=0;i<producto_Storg.length;i++){
+
+			// console.log(producto_Storg[i].id);
+			$("#"+producto_Storg[i].id).prop('disabled',true);
+
+		}
+
+		products_select=producto_Storg;
+
+}
+
+})
+
+
+var storage_productos=[];
 
 var list_products = [
 {id:1,name:'waffer',image:'https://images-na.ssl-images-amazon.com/images/I/51qzYMhIvvL._AC_US160_.jpg', price:2000},
@@ -7,7 +31,7 @@ var list_products = [
 {id:4,name:'zapatos',image:'https://images-na.ssl-images-amazon.com/images/I/41girqxmRPL._AC_UL260_SR200,260_.jpg',price:70000, disabled: 1}
 ];
 
-var products_select = [];
+
 
 
 console.log(list_products);
@@ -40,11 +64,17 @@ function add(id){
 
 	// console.log(obj);
 
+	storage_productos.push(obj[0]);
+
+	localStorage.setItem('productos',JSON.stringify(storage_productos));
+
+
+
 	products_select.push(obj[0]);
 
 
 
-	console.log(products_select);
+	// console.log(products_select);
 }
 
 function ver(){
@@ -75,6 +105,8 @@ function delet(id){
     return product.id != id;
 
 	});
+
+	localStorage.setItem('productos',JSON.stringify(arrays_obj));
 
 	products_select = arrays_obj;
 
